@@ -602,6 +602,7 @@ populateWireless()
 	struct uci_section *s;
 	String channel, chanspec;
 	const char *radio = NULL;
+	bool gotCreds = false;
 
 	if(!(uci_wireless = init_package("wireless")))
 		return;
@@ -635,11 +636,14 @@ populateWireless()
 					MyBus->channel2g = ugeti(s, "channel");
 			}
 		} else if (!strcmp(s->type, "wifi-iface")) {
-			MyBus->ssid = ugets(s, "ssid");
-			MyBus->encryption = ugets(s, "encryption");
-			MyBus->key = ugets(s, "key");
-			if (ugeti(s, "wps_pbc") == 1)
-				MyBus->enableWps = 1;
+			if (!gotCreds) {
+				MyBus->ssid = ugets(s, "ssid");
+				MyBus->encryption = ugets(s, "encryption");
+				MyBus->key = ugets(s, "key");
+				if (ugeti(s, "wps_pbc") == 1)
+					MyBus->enableWps = 1;
+				gotCreds = true;
+			}
 		}
 	}
 }

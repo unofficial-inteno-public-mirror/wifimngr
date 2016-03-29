@@ -725,7 +725,7 @@ int main(int argc, char** argv)
     status = aboutData.SetManufacturer("Inteno");
     status = aboutData.SetModelNumber(strCmd("db get hw.board.routerModel | cut -d'-' -f 2").c_str());
     status = aboutData.SetDescription("Manage WiFi");
-    status = aboutData.SetDateOfManufacture(strCmd("db get hw.board.iopVersion | awk -F'[-,_]' '{print$4}'").c_str());
+    status = aboutData.SetDateOfManufacture("2016-01-01");
     status = aboutData.SetSoftwareVersion(strCmd("db get hw.board.iopVersion | awk -F'[-,_]' '{print$3}'").c_str());
     status = aboutData.SetHardwareVersion(strCmd("db get hw.board.hardwareVersion").c_str());
     status = aboutData.SetSupportUrl("http://www.iopsys.eu");
